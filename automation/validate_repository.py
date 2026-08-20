@@ -22,6 +22,8 @@ REQUIRED_FILES = {
     "instagram_safety_notice": "instagram_account_safety_notice_2026-08-16.md",
     "local_sync_mapping": "antigravity_local_sync_mapping.md",
     "validation_contract": "docs/validation_contract.md",
+    "persistence_policy": "docs/persistence_and_credentials_policy.md",
+    "historical_records_index": "docs/historical_records_index.md",
     "run_record_schema": "schemas/automation_run_record.schema.json",
 }
 
@@ -30,6 +32,8 @@ REQUIRED_PHRASES = {
     "instagram_safety_notice": ["suspended immediately", "local-only mode"],
     "local_sync_mapping": ["No external synchronizations are performed"],
     "validation_contract": ["does not upload, publish, browse, authenticate"],
+    "persistence_policy": ["official credential stores", "must never contain passwords"],
+    "historical_records_index": ["raw terminal history remains local", "not copied into this repository"],
 }
 
 FORBIDDEN_TEXT = ("BEGIN " + "PRIVATE KEY", "gh" + "p_", "github" + "_pat_", "AI" + "za")

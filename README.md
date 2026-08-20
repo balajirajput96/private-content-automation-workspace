@@ -15,6 +15,10 @@ The workflow in `.github/workflows/daily-repository-validation.yml` runs daily a
 
 The workflow must not publish content, access browser sessions, process the local media library, authenticate to external services, modify connectors, or resume platform activity. The local media workflow remains governed by the version-controlled runbook and the active Instagram safety notice.
 
+## Historical Records and CLI State
+
+The repository also preserves a reviewed historical-records index and a credential policy. The daily GitHub workflow validates those policy documents as repository inputs, but it deliberately does **not** run the local CLI-health collector: GitHub-hosted runners do not represent the user's local CLI installations or official local credential stores. When a non-secret local state record is needed, run `automation/record_local_cli_health.py` from the local workspace; its generated output is ignored by Git.
+
 ## Local Validation
 
 Run the deterministic checks from the repository root:
