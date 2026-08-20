@@ -1,0 +1,42 @@
+name: Daily Repository Validation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 2 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-repository-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate safety contract and repository structure
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run deterministic tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Generate non-secret validation record
+        run: python automation/validate_repository.py --repo . --output run-records/github-validation.json
+
+      - name: Upload validation record
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-validation-${{ github.run_id }}
+          path: run-records/github-validation.json
+          if-no-files-found: error
+          retention-days: 14
